@@ -1,8 +1,11 @@
 {
   "name": "@magiof/saju-calendar",
-  "version": "0.3.0-magiof.0",
+  "version": "0.4.0",
   "description": "Magiof 사주·만세력 엔진 — calculateSaju + toCompact",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/magiof/saju-calendar.git"
