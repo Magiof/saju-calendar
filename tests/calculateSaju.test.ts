@@ -452,6 +452,10 @@ test("result schema and text outputs should include key sections", () => {
   assert(compact.includes("## 월운"), "compact should include wolun");
   assert(compact.includes("## 만세력"), "compact should include manse");
   assert(compact.includes("장간"), "compact should include hidden stems");
+  assert(
+    /^장간 .*\([갑을병정무기경신임계]\)/m.test(compact),
+    "compact hidden stems should include Korean readings",
+  );
   assert(compact.includes("신살"), "compact should label special sals as 신살");
   assert(!compact.includes("특살"), "compact should not use legacy 특살 label");
   assert(compact.includes("신살중요도"), "compact should include sinsal tier block");
@@ -597,6 +601,20 @@ test("reported comparisons should match external references for stages and 12-sa
       정기: "庚",
     },
     "1991 case hour hidden stems mismatch",
+  );
+  assertEquals(
+    case1991.pillarDetails.hour.hiddenStemsKo,
+    {
+      여기: "무",
+      중기: "임",
+      정기: "경",
+    },
+    "1991 case hour Korean hidden stems mismatch",
+  );
+  assertEquals(
+    case1991.branchRelations.지장간Ko.hour,
+    "여기:무 중기:임 정기:경",
+    "1991 case hour Korean hidden stem relation mismatch",
   );
 });
 

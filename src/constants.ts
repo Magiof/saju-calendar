@@ -46,6 +46,9 @@ export const EARTHLY_BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午"
 export const KO_TO_HANJA_STEM: Record<string, string> = Object.fromEntries(
   HEAVENLY_STEMS_KO.map((ko, i) => [ko, HEAVENLY_STEMS[i]]),
 );
+export const HANJA_TO_KO_STEM: Record<string, string> = Object.fromEntries(
+  HEAVENLY_STEMS.map((hz, i) => [hz, HEAVENLY_STEMS_KO[i]]),
+);
 export const KO_TO_HANJA_BRANCH: Record<string, string> = Object.fromEntries(
   EARTHLY_BRANCHES_KO.map((ko, i) => [ko, EARTHLY_BRANCHES[i]]),
 );

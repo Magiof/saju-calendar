@@ -32,6 +32,11 @@ export type PillarDetail = {
     중기: string | null;
     정기: string | null;
   };
+  hiddenStemsKo: {
+    여기: string | null;
+    중기: string | null;
+    정기: string | null;
+  };
 };
 
 export type StemRelation = {
@@ -43,6 +48,7 @@ export type StemRelation = {
 
 export type BranchRelations = {
   지장간: Partial<Record<PillarKey, string>>;
+  지장간Ko: Partial<Record<PillarKey, string>>;
   방합: Partial<Record<PillarKey, string>>;
   삼합: Partial<Record<PillarKey, string>>;
   반합: Partial<Record<PillarKey, string>>;

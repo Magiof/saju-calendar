@@ -19,7 +19,10 @@ function compactPillarToken(data: SajuResult, key: PillarKey, part: "stem" | "br
 
 function compactHidden(data: SajuResult, key: PillarKey): string {
   const h = data.pillarDetails[key].hiddenStems;
-  return [h.여기 || "-", h.중기 || "-", h.정기 || "-"].join(",");
+  const hKo = data.pillarDetails[key].hiddenStemsKo;
+  return (["여기", "중기", "정기"] as const)
+    .map((position) => (h[position] ? `${h[position]}(${hKo[position]})` : "-"))
+    .join(",");
 }
 
 function compactRow(label: string, values: string[]): string {

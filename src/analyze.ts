@@ -9,6 +9,7 @@ import {
   EARTHLY_BRANCHES,
   HEAVENLY_STEMS,
   HANJA_TO_KO_BRANCH,
+  HANJA_TO_KO_STEM,
   KO_TO_HANJA_BRANCH,
   KO_TO_HANJA_STEM,
   MONTH_LABELS,
@@ -268,6 +269,11 @@ function buildPillarDetail(stemKo: string, branchKo: string): PillarDetail {
       여기: BRANCH_HIDDEN_STEMS[branch]?.여기 || null,
       중기: BRANCH_HIDDEN_STEMS[branch]?.중기 || null,
       정기: BRANCH_HIDDEN_STEMS[branch]?.정기 || null,
+    },
+    hiddenStemsKo: {
+      여기: HANJA_TO_KO_STEM[BRANCH_HIDDEN_STEMS[branch]?.여기 || ""] || null,
+      중기: HANJA_TO_KO_STEM[BRANCH_HIDDEN_STEMS[branch]?.중기 || ""] || null,
+      정기: HANJA_TO_KO_STEM[BRANCH_HIDDEN_STEMS[branch]?.정기 || ""] || null,
     },
   };
 }
@@ -558,6 +564,7 @@ function isBranchPairMatch(b1: string, b2: string, pair: [string, string]): bool
 function getBranchRelations(branches: [string, string, string, string]): BranchRelations {
   const results: BranchRelations = {
     지장간: {},
+    지장간Ko: {},
     방합: {},
     삼합: {},
     반합: {},
@@ -580,6 +587,12 @@ function getBranchRelations(branches: [string, string, string, string]): BranchR
     if (hidden.중기) parts.push(`중기:${hidden.중기}`);
     if (hidden.정기) parts.push(`정기:${hidden.정기}`);
     results.지장간[pillarNames[i]] = parts.join(" ");
+
+    const partsKo: string[] = [];
+    if (hidden.여기) partsKo.push(`여기:${HANJA_TO_KO_STEM[hidden.여기]}`);
+    if (hidden.중기) partsKo.push(`중기:${HANJA_TO_KO_STEM[hidden.중기]}`);
+    if (hidden.정기) partsKo.push(`정기:${HANJA_TO_KO_STEM[hidden.정기]}`);
+    results.지장간Ko[pillarNames[i]] = partsKo.join(" ");
   }
 
   for (let i = 0; i < branches.length; i++) {
