@@ -219,7 +219,6 @@ const TIMEZONE_DATE_PART_OPTIONS: Intl.DateTimeFormatOptions = {
   minute: "2-digit",
   second: "2-digit",
   hourCycle: "h23",
-  hour12: false,
 };
 
 const timezoneFormatterCache = new Map<string, Intl.DateTimeFormat>();
@@ -245,10 +244,6 @@ function getDateTimePartsInTimeZone(date: Date, timeZone: string) {
   }
 
   if (values.hour === 24) {
-    const normalized = new Date(Date.UTC(values.year, (values.month || 1) - 1, values.day || 1) + DAY_IN_MS);
-    values.year = normalized.getUTCFullYear();
-    values.month = normalized.getUTCMonth() + 1;
-    values.day = normalized.getUTCDate();
     values.hour = 0;
   }
 

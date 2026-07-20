@@ -113,6 +113,54 @@ test("golden case: 1992-10-24 05:30 solar", () => {
   );
 });
 
+test("KST midnight reference should keep the same calendar date", () => {
+  const result = calculateSaju({
+    year: 2000,
+    month: 7,
+    day: 21,
+    hour: 12,
+    minute: 0,
+    gender: "여",
+    calendar: "solar",
+    now: new Date("2026-07-20T00:12:00+09:00"),
+  });
+
+  assert(
+    result.reference.now === "2026-07-20 00:12 KST",
+    `midnight reference should remain on July 20, got ${result.reference.now}`,
+  );
+  assert(result.currentAge === 25, "July 21 birthday should still be upcoming at July 20 00:12 KST");
+});
+
+test("non-KST midnight should convert across the year boundary without adding a day", () => {
+  const kiritimatiMidnight = calculateSaju({
+    year: 2026,
+    month: 1,
+    day: 1,
+    hour: 0,
+    minute: 12,
+    gender: "여",
+    calendar: "solar",
+    timezone: "Pacific/Kiritimati",
+  });
+  const sameInstantInKorea = calculateSaju({
+    year: 2025,
+    month: 12,
+    day: 31,
+    hour: 19,
+    minute: 12,
+    gender: "여",
+    calendar: "solar",
+    timezone: "Asia/Seoul",
+  });
+
+  assertEquals(
+    kiritimatiMidnight.pillars,
+    sameInstantInKorea.pillars,
+    "Pacific/Kiritimati midnight should equal the same instant in Korea",
+  );
+});
+
 test("lunar input should match equivalent solar input", () => {
   const solarResult = calculateSaju({
     year: 1992,
